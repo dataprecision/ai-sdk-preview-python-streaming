@@ -38,3 +38,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore Python virtual environment and version file
+api/.venv/
+api/.python-version
+
+# Ignore Yarn lock file
+yarn.lock
