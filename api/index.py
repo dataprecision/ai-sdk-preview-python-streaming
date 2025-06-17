@@ -11,7 +11,8 @@ from .utils.prompt import ClientMessage, convert_to_openai_messages
 from .utils.tools import get_current_weather
 
 
-load_dotenv(".env.local")
+# Load environment variables from .env for local development
+load_dotenv(".env")
 
 app = FastAPI()
 
