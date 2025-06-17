@@ -7,7 +7,7 @@ export const Navbar = () => {
     <div className="pt-6 pl-8 flex items-center justify-start">
       <div
         className="text-3xl uppercase"
-        style={{ fontFamily: "HelveticaNeueBold" }}
+        style={{ fontFamily: "Aptos, sans-serif" }}
       >
         DWAO
       </div>

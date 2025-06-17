@@ -1,14 +1,23 @@
 import requests
 import difflib
 import json
+import os
 from typing import List, Dict, Union
+from dotenv import load_dotenv
 
+load_dotenv(".env.local")
+
+CLIENT_ID = os.environ.get("ADOBE_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("ADOBE_CLIENT_SECRET")
+COMPANY_ID = os.environ.get("ADOBE_COMPANY_ID")
+ORG_ID = os.environ.get("ADOBE_ORG_ID")
+REPORTSUIT_ID = os.environ.get("ADOBE_REPORTSUIT_ID")
 
 # === Get Access Token ===
 def get_access_token():
     url = "https://ims-na1.adobelogin.com/ims/token/v3"
 
-    payload = "grant_type=client_credentials&client_id=922aca57d4fe4cd290b1558b7271104d&client_secret=p8e-iRy2dzXDXuunQ33aZpSGTUlhxo8xDvV-&scope=openid%2CAdobeID%2Cadditional_info.projectedProductContext%2Ctarget_sdk%2Cread_organizations%2Cadditional_info.roles"
+    payload = f"grant_type=client_credentials&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&scope=openid%2CAdobeID%2Cadditional_info.projectedProductContext%2Ctarget_sdk%2Cread_organizations%2Cadditional_info.roles"
     headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         "Cookie": "ftrset=611; relay=f0b5d32e-f7c3-480b-9ac3-8f08e5df8f94",
@@ -20,14 +29,14 @@ def get_access_token():
 
 
 with open(
-    r"C:\Users\SharadChandel\Downloads\ai-sdk-preview-python-streaming\api\utils\metrics.json",
+    "api\utils\metrics.json",
     "r",
     encoding="utf-8",
 ) as f:
     METRICS = json.load(f)
 
 with open(
-    r"C:\Users\SharadChandel\Downloads\ai-sdk-preview-python-streaming\api\utils\dimension.json",
+    "api\utils\dimension.json",
     "r",
     encoding="utf-8",
 ) as f:
@@ -50,9 +59,9 @@ def get_report(
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json;charset=utf-8",
-        "x-gw-ims-org-id": "3817033753EE89720A490D4D@AdobeOrg",
+        "x-gw-ims-org-id": f"{ORG_ID}",
         "x-gw-ims-user-id": "7CC01F6C631C117E0A495CCE@80362013631c0cf6495fea.e",
-        "x-proxy-global-company-id": "hdfcba0",
+        "x-proxy-global-company-id": f"{COMPANY_ID}",
         "x-request-id": "7ad7b64ed1b0465d8a6fba9a215bd4d0",
         "x-request-entity-id": "6578686f1a29784f54f2d788",
         "x-request-client-type": "AW",
@@ -76,7 +85,7 @@ def get_report(
     valid_dimension = get_closest_match(dimension, DIMENSIONS)
 
     body = {
-        "rsid": "hdfcbankprod",
+        "rsid": f"{REPORTSUIT_ID}",
         "globalFilters": [
             {
                 "type": "dateRange",

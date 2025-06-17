@@ -21,14 +21,14 @@ import { Textarea } from "./ui/textarea";
 
 const suggestedActions = [
   {
-    title: "What is the weather",
-    label: "in San Francisco?",
-    action: "What is the weather in San Francisco?",
+    title: "What were the top 10 most",
+    label: "visited pages yesterday?",
+    action: "What were the top 10 most visited pages yesterday?",
   },
   {
-    title: "How is python useful",
-    label: "for AI engineers?",
-    action: "How is python useful for AI engineers?",
+    title: "Which pages had the highest",
+    label: "bounce rate this month?",
+    action: "Which pages had the highest bounce rate this month?",
   },
 ];
 
