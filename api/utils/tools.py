@@ -13,6 +13,7 @@ COMPANY_ID = os.environ.get("ADOBE_COMPANY_ID")
 ORG_ID = os.environ.get("ADOBE_ORG_ID")
 REPORTSUIT_ID = os.environ.get("ADOBE_REPORTSUIT_ID")
 
+
 # === Get Access Token ===
 def get_access_token():
     url = "https://ims-na1.adobelogin.com/ims/token/v3"
@@ -29,14 +30,14 @@ def get_access_token():
 
 
 with open(
-    "api\utils\metrics.json",
+    r"api\utils\metrics.json",
     "r",
     encoding="utf-8",
 ) as f:
     METRICS = json.load(f)
 
 with open(
-    "api\utils\dimension.json",
+    r"api\utils\dimension.json",
     "r",
     encoding="utf-8",
 ) as f:
