@@ -7,7 +7,6 @@ import { SparklesIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { PreviewAttachment } from "./preview-attachment";
 import { cn } from "@/lib/utils";
-import { Weather } from "./weather";
 
 export const PreviewMessage = ({
   message,
@@ -25,7 +24,7 @@ export const PreviewMessage = ({
     >
       <div
         className={cn(
-          "group-data-[role=user]/message:bg-primary group-data-[role=user]/message:text-primary-foreground flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl",
+          "group-data-[role=user]/message:bg-primary group-data-[role=user]/message:text-primary-foreground flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl"
         )}
       >
         {message.role === "assistant" && (
@@ -38,38 +37,6 @@ export const PreviewMessage = ({
           {message.content && (
             <div className="flex flex-col gap-4">
               <Markdown>{message.content as string}</Markdown>
-            </div>
-          )}
-
-          {message.toolInvocations && message.toolInvocations.length > 0 && (
-            <div className="flex flex-col gap-4">
-              {message.toolInvocations.map((toolInvocation) => {
-                const { toolName, toolCallId, state } = toolInvocation;
-
-                if (state === "result") {
-                  const { result } = toolInvocation;
-
-                  return (
-                    <div key={toolCallId}>
-                      {toolName === "get_current_weather" ? (
-                        <Weather weatherAtLocation={result} />
-                      ) : (
-                        <pre>{JSON.stringify(result, null, 2)}</pre>
-                      )}
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={toolCallId}
-                    className={cn({
-                      skeleton: ["get_current_weather"].includes(toolName),
-                    })}
-                  >
-                    {toolName === "get_current_weather" ? <Weather /> : null}
-                  </div>
-                );
-              })}
             </div>
           )}
 
@@ -94,7 +61,7 @@ export const ThinkingMessage = () => {
 
   return (
     <motion.div
-      className="w-full mx-auto max-w-3xl px-4 group/message "
+      className="w-full mx-auto max-w-3xl px-4 group/message"
       initial={{ y: 5, opacity: 0 }}
       animate={{ y: 0, opacity: 1, transition: { delay: 1 } }}
       data-role={role}
@@ -102,9 +69,7 @@ export const ThinkingMessage = () => {
       <div
         className={cn(
           "flex gap-4 group-data-[role=user]/message:px-3 w-full group-data-[role=user]/message:w-fit group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl group-data-[role=user]/message:py-2 rounded-xl",
-          {
-            "group-data-[role=user]/message:bg-muted": true,
-          },
+          { "group-data-[role=user]/message:bg-muted": true }
         )}
       >
         <div className="size-8 flex items-center rounded-full justify-center ring-1 shrink-0 ring-border">
@@ -112,9 +77,14 @@ export const ThinkingMessage = () => {
         </div>
 
         <div className="flex flex-col gap-2 w-full">
-          <div className="flex flex-col gap-4 text-muted-foreground">
-            Thinking...
-          </div>
+          <motion.div className="flex flex-col gap-4 text-muted-foreground">
+            <motion.span
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 1 }}
+            >
+              Thinking...
+            </motion.span>
+          </motion.div>
         </div>
       </div>
     </motion.div>
